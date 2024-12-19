@@ -1,23 +1,20 @@
-window.addEventListener("click", function () {
+document.addEventListener("DOMContentLoaded", function() {
   const audio = document.getElementById("music");
-  if (audio.paused) {
-    audio.volume = 0.2;
-    audio.play();
+  const switchButton = document.getElementById("switch-theme-button");
+
+  switchButton.addEventListener("click", switchTheme);
+
+  function switchTheme() {
+      const body = document.body;
+      const audio = document.getElementById("music");
+      
+      body.classList.toggle("dark-theme");
+      body.classList.toggle("light-theme");
+
+      const isDarkTheme = body.classList.contains("dark-theme");
+      audio.src = `src/musics/${isDarkTheme ? "inverted-world.mpeg" : "normal-world.mpeg"}`;
+      audio.play();
+      audio.volume = 0.2;
   }
 });
 
-function switchTheme() {
-  document.body.classList.toggle("dark-theme");
-  document.body.classList.toggle("light-theme");
-
-  const theme = document.body.classList.contains("dark-theme")
-    ? "dark-theme"
-    : "light-theme";
-  const music =
-    theme === "light-theme" ? "normal-world.mpeg" : "inverted-world.mpeg";
-
-  const audio = document.getElementById("music");
-  audio.src = `src/musics/${music}`;
-  audio.play();
-  audio.volume = 0.2;
-}
